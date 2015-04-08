@@ -45,11 +45,14 @@ ReplaceFilter.prototype.getDestFilePath = function (relativePath) {
   return null;
 };
 
-ReplaceFilter.prototype.processString = function (string) {
+ReplaceFilter.prototype.processString = function (string, relativePath) {
   var result = this.applause.replace(string);
   if (result === false) {
     // no replacements
     return string;
+  }
+  if (this.options.replaceWithPath) {
+    result = this.options.replaceWithPath(relativePath, result);
   }
   return result;
 };
